@@ -51,7 +51,7 @@ KNN::calculateDistance(Neighbor reference)
 bool
 compare(Neighbor a, Neighbor b)
 {
-    return a.getDistance() < b.getDistance();
+    return a.getDistance() > b.getDistance();
 }
 
 vector<Neighbor>
@@ -62,7 +62,10 @@ KNN::getNearestNeighbors()
     sort(this->traineData.begin(), this->traineData.end(), compare);
 
     for(int i=0; i<this->k; i++)
+    {
+        cout << this->traineData[i].getInstance().getClassification() << endl;
         nearest.push_back(this->traineData[i]);
+    }
 
     return nearest;
 }
@@ -71,11 +74,24 @@ int
 KNN::determineMajority(vector<Neighbor> nearestNeighbors)
 {
     map<int,int> count;
+    pair<int,int> champion;
+    int aux=-1;
 
     for(unsigned int i=0; i<nearestNeighbors.size(); i++)
         count[ nearestNeighbors[i].getInstance().getClassification() ]++;
 
-    pair<int,int> champion = *count.end();
+    map<int,int>::iterator it = count.begin();
+
+    for(;it != count.end(); ++it)
+    {
+        cout << it->first << " -> " << it->second << endl;
+        if(it->second > aux)
+        {
+            champion = *it;
+            aux = it->second;
+        }
+    }
+
     return champion.first;
 }
 
