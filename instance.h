@@ -4,21 +4,22 @@
 using namespace std;
 
 #include <vector>
-#include "attribute.h"
 
-class Instace
+class Instance
 {
   public:
 
-    Instance(vector<Attribute> attributes);
-    Instance(vector<Attribute> attributes, int classification);
+    Instance();
+    Instance(vector<int> attributes);
+    Instance(vector<int> attributes, int classification);
     int getClassification();
+    vector<int> getAttributes();
 
   private:
 
-    vector<Attribute> attributes;
+    vector<int> attributes;
     int classification;
-}
+};
 
 #endif
 

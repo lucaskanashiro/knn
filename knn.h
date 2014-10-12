@@ -1,9 +1,11 @@
 #ifndef KNN_H
 #define KNN_H
 
-#include <cmath>
-#include "read_data_set.h"
+#include <map>
+#include <algorithm>
+#include "data_set.h"
 #include "neighbor.h"
+#include "result.h"
 
 using namespace std;
 
@@ -12,18 +14,18 @@ class KNN
   public:
 
     KNN(int k);
-    double analysisData(vector<Neighbor> traineData, vector<Neighbor> testData, int numRuns);
+    double analysisData(string dataTraineFile, string dataTestFile, string outputFile);
 
   private:
 
     void calculateDistance(Neighbor reference);
-    vector<Neighbor> getNearestNeighbors(Neighbor reference);
+    vector<Neighbor> getNearestNeighbors();
     int determineMajority(vector<Neighbor> nearestNeighbors);
 
     vector<Neighbor> traineData, testData;
-    double precision;
-    int k, numRuns;
-}
+    int k;
+    DataSet fileManager;
+};
 
 #endif
 
