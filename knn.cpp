@@ -8,44 +8,76 @@ KNN::KNN(int k)
 double
 KNN::analysisData(string dataTraineFile, string dataTestFile, string outputFile)
 {
-    vector<Result> result;
-    int ok=0, fail=0;
-
     this->traineData = this->fileManager.build(dataTraineFile);
     this->testData = this->fileManager.build(dataTestFile);
 
-    for(unsigned int i=0; i<this->testData.size(); i++)
+    vector<Result> result;
+    int ok=0, fail=0;
+
+    for(unsigned int j=0; j<this->testData.size(); j++)
     {
-        vector<Neighbor> nearest;
-        int predictedClassification;
+        int predictedClassification = classificateData(this->testData[j], this->traineData);
 
-        this->calculateDistance(this->testData[i]);
-        nearest = this->getNearestNeighbors();
-        predictedClassification = this->determineMajority(nearest);
-
-        if(predictedClassification == this->testData[i].getInstance().getClassification())
+        if(predictedClassification == this->testData[j].getInstance().getClassification())
             ok++;
         else
             fail++;
 
-        result.push_back(Result(this->testData[i], predictedClassification));
+        result.push_back(Result(this->testData[j], predictedClassification));
+
+        cout << ".";
     }
+
+    cout << endl << endl;
 
     this->fileManager.writeResult(result, outputFile);
 
-    double precision = ok / (ok + fail);
+    double precision = (ok / (ok + fail))*100;
 
+    cout << "TOTAL INSTANCES: " << ok+fail << endl;
     cout << "OK: "<< ok << "\tFail: " << fail << endl;
-    cout << "PRECISION: " << precision << endl;
 
     return precision;
 }
 
-void
-KNN::calculateDistance(Neighbor reference)
+int 
+KNN::classificateData(Neighbor point, vector<Neighbor> neighbors)
 {
-    for(unsigned int i=0; i<this->traineData.size(); i++)
-        this->traineData[i].calculateDistance(reference);
+    double distance;
+    vector<Neighbor> neigh, nearest;
+
+    for (unsigned int i=0; i<neighbors.size(); i++){
+
+        distance = this->calculateDistance(point, neighbors[i]);
+
+        if(distance == 0)
+            return neighbors[i].getInstance().getClassification();
+
+        Neighbor n = Neighbor(neighbors[i].getInstance(), distance);
+
+        neigh.push_back(n);
+    }
+
+    nearest = this->getNearestNeighbors(neigh);
+
+    int predictedClassification = this->determineMajority(nearest);
+
+    return predictedClassification;
+}
+
+double
+KNN::calculateDistance(Neighbor a, Neighbor b)
+{
+    double distance=0.0;
+    vector<int> attrA, attrB;
+
+    attrA = a.getInstance().getAttributes();
+    attrB = b.getInstance().getAttributes();
+
+    for(unsigned int i=0; i<attrA.size(); i++)
+        distance += pow((attrA[i]-attrB[i]), 2);
+
+    return sqrt(distance);
 }
 
 bool
@@ -55,17 +87,14 @@ compare(Neighbor a, Neighbor b)
 }
 
 vector<Neighbor>
-KNN::getNearestNeighbors()
+KNN::getNearestNeighbors(vector<Neighbor> allNeighbors)
 {
     vector<Neighbor> nearest;
 
-    sort(this->traineData.begin(), this->traineData.end(), compare);
+    sort(allNeighbors.begin(), allNeighbors.end(), compare);
 
     for(int i=0; i<this->k; i++)
-    {
-        cout << this->traineData[i].getInstance().getClassification() << "\tDist: " << this->traineData[i].getDistance()<< endl;
-        nearest.push_back(this->traineData[i]);
-    }
+        nearest.push_back(allNeighbors[i]);
 
     return nearest;
 }

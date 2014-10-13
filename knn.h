@@ -3,6 +3,7 @@
 
 #include <map>
 #include <algorithm>
+#include <cmath>
 #include "data_set.h"
 #include "neighbor.h"
 #include "result.h"
@@ -18,9 +19,10 @@ class KNN
 
   private:
 
-    void calculateDistance(Neighbor reference);
-    vector<Neighbor> getNearestNeighbors();
+    double calculateDistance(Neighbor a, Neighbor b);
+    vector<Neighbor> getNearestNeighbors(vector<Neighbor> allNeighbors);
     int determineMajority(vector<Neighbor> nearestNeighbors);
+    int classificateData(Neighbor point, vector<Neighbor> neighbors);
 
     vector<Neighbor> traineData, testData;
     int k;

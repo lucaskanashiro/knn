@@ -15,19 +15,24 @@ DataSet::build(string file_path)
 
     string line;
     Neighbor neighbor;
-    vector<int> attr;
     vector<Neighbor> neighbors;
+
 
     while(getline(file, line))
     {
-        cout << line << endl;
+        if(line.empty())
+            continue;
+
         stringstream stream(line);
         int value, classification;
+        vector<int> attr;
 
         while(stream >> value)
         {
             attr.push_back(value);
-            stream.ignore(1);
+
+            if(stream.peek() == ',')
+                stream.ignore();
         }
 
         classification = attr.back();

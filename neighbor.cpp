@@ -6,6 +6,19 @@ Neighbor::Neighbor(){}
 Neighbor::Neighbor(Instance instance)
 {
     this->instance = instance;
+    this->distance = 0.0;
+}
+
+Neighbor::Neighbor(Instance instance, double distance)
+{
+    this->instance = instance;
+    this->distance = distance;
+}
+
+void
+Neighbor::cleanDistance()
+{
+    this->distance = 0.0;
 }
 
 void
@@ -19,8 +32,8 @@ Neighbor::calculateDistance(Neighbor neighbor)
 
     for(unsigned int i=0; i<localAttr.size(); i++)
     {
-        cout << localAttr[i] << " ---- " << neighborAttr[i] << endl;
         distance += pow((localAttr[i] - neighborAttr[i]), 2);
+        cout << neighborAttr[i] << endl;
     }
     
     this->distance = sqrt(distance);

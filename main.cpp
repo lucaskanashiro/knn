@@ -27,8 +27,8 @@ int main(int argc, char* argv[])
 
         double precision = knn.analysisData(dataTraineFile, dataTestFile, outputFile);
 
-        cout << "Precision of this test data:  " << precision << endl << endl;
-        cout << "You can view the prediction of this algorithm in " << outputFile << endl;
+        cout << "Precision of this test data:  " << precision << "%" << endl << endl;
+        cout << "You can view details of this execution in " << outputFile << endl;
     }
 
     return 0;

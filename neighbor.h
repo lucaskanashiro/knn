@@ -12,9 +12,11 @@ class Neighbor
 
     Neighbor();
     Neighbor(Instance instance);
+    Neighbor(Instance instance, double distance);
     void calculateDistance(Neighbor neighbor);
     Instance getInstance();
     double getDistance();
+    void cleanDistance();
 
   private:
 
