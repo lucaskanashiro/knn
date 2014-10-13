@@ -6,7 +6,7 @@ KNN::KNN(int k)
 }
 
 double
-KNN::analysisData(string dataTraineFile, string dataTestFile, string outputFile)
+KNN::analysisData(string dataTraineFile, string dataTestFile)
 {
     this->traineData = this->fileManager.build(dataTraineFile);
     this->testData = this->fileManager.build(dataTestFile);
@@ -30,7 +30,7 @@ KNN::analysisData(string dataTraineFile, string dataTestFile, string outputFile)
 
     cout << endl << endl;
 
-    this->fileManager.writeResult(result, outputFile);
+    this->fileManager.writeResult(result);
 
     double precision = (ok / (ok + fail))*100;
 

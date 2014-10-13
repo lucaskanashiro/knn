@@ -15,7 +15,7 @@ class KNN
   public:
 
     KNN(int k);
-    double analysisData(string dataTraineFile, string dataTestFile, string outputFile);
+    double analysisData(string dataTraineFile, string dataTestFile);
 
   private:
 

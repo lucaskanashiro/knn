@@ -46,11 +46,11 @@ DataSet::build(string file_path)
 }
 
 void
-DataSet::writeResult(vector<Result> result, string outputFile)
+DataSet::writeResult(vector<Result> result)
 {
     ofstream output;
 
-    output.open(outputFile.c_str());
+    output.open("result.txt");
 
     for(unsigned int i=0; i<result.size(); i++)
         output << "Instance " << i+1 << ": " << result[i].getClassification() << endl;

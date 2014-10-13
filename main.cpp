@@ -14,21 +14,21 @@ int main(int argc, char* argv[])
     if(argc == 2 && strcmp(argv[1],"help") == 0)
     {
         cout << "This is a implemantation of KNN algorithm. Case of handwritten numbers." << endl << endl;
-        cout << "[USAGE]: ./KNN [dataTraineFile] [dataTestFile] [outputFile]" << endl;
+        cout << "[USAGE]: ./KNN [K] [dataTraineFile] [dataTestFile]" << endl;
     }
 
     if(argc == 4)
     {
-        string dataTraineFile = argv[1];
-        string dataTestFile = argv[2];
-        string outputFile = argv[3];
+        int k = atoi(argv[1]);
+        string dataTraineFile = argv[2];
+        string dataTestFile = argv[3];
 
-        KNN knn = KNN(5);
+        KNN knn = KNN(k);
 
-        double precision = knn.analysisData(dataTraineFile, dataTestFile, outputFile);
+        double precision = knn.analysisData(dataTraineFile, dataTestFile);
 
         cout << "Precision of this test data:  " << precision << "%" << endl << endl;
-        cout << "You can view details of this execution in " << outputFile << endl;
+        cout << "You can view details of this execution in result.txt" << endl;
     }
 
     return 0;

@@ -18,7 +18,7 @@ class DataSet
     
     DataSet();
     vector<Neighbor> build(string file_path);
-    void writeResult(vector<Result> result, string outputFile);
+    void writeResult(vector<Result> result);
 };
 
 #endif
