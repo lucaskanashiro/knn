@@ -51,7 +51,7 @@ KNN::calculateDistance(Neighbor reference)
 bool
 compare(Neighbor a, Neighbor b)
 {
-    return a.getDistance() > b.getDistance();
+    return a.getDistance() < b.getDistance();
 }
 
 vector<Neighbor>
@@ -63,7 +63,7 @@ KNN::getNearestNeighbors()
 
     for(int i=0; i<this->k; i++)
     {
-        cout << this->traineData[i].getInstance().getClassification() << endl;
+        cout << this->traineData[i].getInstance().getClassification() << "\tDist: " << this->traineData[i].getDistance()<< endl;
         nearest.push_back(this->traineData[i]);
     }
 

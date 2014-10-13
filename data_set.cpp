@@ -30,11 +30,6 @@ DataSet::build(string file_path)
             stream.ignore(1);
         }
 
-        //for(unsigned int i=0; i<attr.size(); i++)
-        //{
-        //    cout << attr[i] << endl;
-        //}
-
         classification = attr.back();
         attr.pop_back();
 

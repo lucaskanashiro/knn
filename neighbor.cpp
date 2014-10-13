@@ -1,4 +1,5 @@
 #include "neighbor.h"
+#include <iostream>
 
 Neighbor::Neighbor(){}
 
@@ -17,7 +18,10 @@ Neighbor::calculateDistance(Neighbor neighbor)
     neighborAttr = neighbor.getInstance().getAttributes();
 
     for(unsigned int i=0; i<localAttr.size(); i++)
+    {
+        cout << localAttr[i] << " ---- " << neighborAttr[i] << endl;
         distance += pow((localAttr[i] - neighborAttr[i]), 2);
+    }
     
     this->distance = sqrt(distance);
 }
