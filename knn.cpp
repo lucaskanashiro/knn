@@ -32,7 +32,7 @@ KNN::analysisData(string dataTraineFile, string dataTestFile)
 
     this->fileManager.writeResult(result);
 
-    double precision = (ok / (ok + fail))*100;
+    double precision = ((double)ok / (double)(ok + fail))*100.0;
 
     cout << "TOTAL INSTANCES: " << ok+fail << endl;
     cout << "OK: "<< ok << "\tFail: " << fail << endl;
@@ -113,7 +113,6 @@ KNN::determineMajority(vector<Neighbor> nearestNeighbors)
 
     for(;it != count.end(); ++it)
     {
-        cout << it->first << " -> " << it->second << endl;
         if(it->second > aux)
         {
             champion = *it;
